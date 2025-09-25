@@ -307,19 +307,40 @@ main .page.active {
     justify-content: center;
 }
 
-/* Achievement Notifications */
-.achievement-notification {
+/* Base Notification Style */
+.notification {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     padding: 16px 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
     z-index: 1000;
     animation: slide-in 0.5s ease-out;
-    max-width: 300px;
+    width: 300px;
+    min-height: 80px;
+    transition: top 0.3s ease-in-out, opacity 0.3s ease-out, transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Achievement Notifications (Hijau) */
+.notification.achievement {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Unlock Notifications (Ungu) */
+.notification.unlock {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* Warning Notifications (Jingga) */
+.notification.warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
 }
 
 @keyframes slide-in {
@@ -333,13 +354,28 @@ main .page.active {
     }
 }
 
-.achievement-title {
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.notification.fade-out {
+    animation: slide-out 0.3s ease-in-out forwards;
+}
+
+.notification-title {
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 4px;
 }
 
-.achievement-description {
+.notification-description {
     font-size: 14px;
     opacity: 0.9;
 }
