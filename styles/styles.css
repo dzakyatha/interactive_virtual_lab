@@ -1,0 +1,573 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+}
+
+.lab-canvas {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+}
+
+/* Ensure page visibility is properly controlled */
+.page {
+    display: none !important;
+}
+
+.page.active {
+    display: block !important;
+}
+
+/* Additional specificity to override any Tailwind conflicts */
+main .page {
+    display: none !important;
+}
+
+main .page.active {
+    display: block !important;
+}
+        
+.hidden {
+    display: none;
+}
+
+/* Custom styles for the sorting visualizer bars */
+.sort-bar {
+    display: inline-block;
+    background-color: #3b82f6;
+    margin: 0 1px;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.sort-bar.comparing {
+    background-color: #f59e0b;
+}
+
+.sort-bar.swapped {
+    background-color: #ef4444;
+}
+
+.sort-bar.sorted {
+    background-color: #22c55e;
+}
+
+/* Chemistry Lab Styles */
+.chemical-shelf-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.chemical-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.chemical-bottle {
+    width: 100%;
+    min-width: 120px;
+    height: 85px;
+    border-radius: 8px 4px 4px 8px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    border: 2px solid #e5e7eb;
+}
+
+.chemical-bottle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.chemical-bottle:active {
+    cursor: grabbing;
+}
+
+.chemical-bottle.dragging {
+    opacity: 0.7;
+    transform: rotate(5deg) scale(1.1);
+    z-index: 1000;
+}
+
+.chemical-label {
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.beaker-container {
+    width: 180px;
+    height: 220px;
+    position: relative;
+}
+
+.beaker-shape {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, transparent 20%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.8) 100%);
+    border: 3px solid #374151;
+    border-radius: 0 0 50px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chemical-mixture {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0%;
+    transition: height 0.5s ease, background-color 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 45px 45px;
+}
+
+.mixture-text {
+    color: #6b7280;
+    font-size: 14px;
+    text-align: center;
+    margin: 0;
+}
+
+.beaker-shape.drag-over {
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.reaction-animation {
+    animation: bubble 0.5s ease-in-out;
+}
+
+@keyframes bubble {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Temperature Effects */
+.heating {
+    animation: heating 1s ease-in-out infinite alternate;
+}
+
+.cooling {
+    animation: cooling 1s ease-in-out infinite alternate;
+}
+
+@keyframes heating {
+    0% { box-shadow: 0 0 5px rgba(255, 100, 100, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 100, 0, 0.6); }
+}
+
+@keyframes cooling {
+    0% { box-shadow: 0 0 5px rgba(100, 100, 255, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(0, 100, 255, 0.8), 0 0 30px rgba(100, 200, 255, 0.6); }
+}
+
+/* Gas Production Effects */
+.gas-bubbles {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: bubble-rise 2s linear infinite;
+}
+
+@keyframes bubble-rise {
+    0% {
+        bottom: 0;
+        opacity: 1;
+        transform: translateX(-50%) scale(0.5);
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-50%) scale(1.2);
+    }
+}
+
+/* Precipitation Effects */
+.precipitation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: linear-gradient(to top, rgba(200, 200, 200, 0.9), transparent);
+    animation: settling 3s ease-out;
+}
+
+@keyframes settling {
+    0% {
+        height: 100%;
+        opacity: 0.9;
+    }
+    100% {
+        height: 20%;
+        opacity: 0.7;
+    }
+}
+
+/* Steam Effect */
+.steam {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40px;
+    pointer-events: none;
+}
+
+.steam-particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: steam-rise 3s ease-out infinite;
+}
+
+@keyframes steam-rise {
+    0% {
+        bottom: 0;
+        opacity: 0.8;
+        transform: translateX(-50%) scale(0.8);
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-50%) scale(1.5);
+    }
+}
+
+/* Temperature Display */
+.temperature-display {
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    animation: fade-in 0.5s ease-in;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Locked Chemical Styles */
+.chemical-bottle.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: linear-gradient(45deg, #9ca3af, #6b7280) !important;
+    position: relative;
+}
+
+.chemical-bottle.locked:hover {
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chemical-bottle.locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Achievement Notifications */
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    z-index: 1000;
+    animation: slide-in 0.5s ease-out;
+    max-width: 300px;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.achievement-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.achievement-description {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Progress Bar */
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.instruction-button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.instruction-button:hover {
+    background: #2563eb;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.instruction-icon {
+    font-size: 14px;
+}
+
+.progress-container {
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    height: 8px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    text-align: center;
+}
+
+/* Beaker Full Warning */
+.beaker-full {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5) !important;
+}
+
+.beaker-full-warning {
+    color: #ef4444;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Unlock Hint */
+.unlock-hint {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-width: 250px;
+    white-space: pre-wrap;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.unlock-hint.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.unlock-hint::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* Instruction Modal */
+.instruction-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.instruction-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.instruction-content {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.instruction-modal.show .instruction-content {
+    transform: scale(1);
+}
+
+.instruction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.instruction-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: color 0.2s ease;
+    padding: 4px;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: #374151;
+}
+
+.mixture-list {
+    display: grid;
+    gap: 12px;
+}
+
+.mixture-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.mixture-item:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.mixture-item.completed {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+}
+
+.mixture-chemicals {
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 4px;
+}
+
+.mixture-result {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.mixture-status {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mixture-status.completed {
+    color: #059669;
+}
+
+.mixture-status.not-completed {
+    color: #d97706;
+}
+
+.mixture-unlock {
+    color: #7c3aed;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 4px;
+}
