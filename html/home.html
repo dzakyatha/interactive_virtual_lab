@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../styles/styles.css" rel="stylesheet">
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen" data-mode="spa">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <h1 class="text-2xl font-bold text-gray-800">Moleculy</h1>
+            
+            <!-- Home Button -->
+            <nav><button id="home-btn" class="text-gray-600 hover:text-blue-600 font-medium">Home</button></nav>
+            
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8 flex-1">
+        <section id="home-page" class="page active">
+            <div class="flex flex-col lg:flex-row items-center gap-8 mb-8">
+
+                <!-- Image -->
+                <div class="flex-1 flex justify-center">
+                    <img src="../img/bahan-kimia.jpg" alt="Chemistry Lab Equipment" class="max-w-full h-auto rounded-lg shadow-lg">
+                </div>
+
+                <!-- Description -->
+                <div class="flex-1">
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-4">Your No.1 Interactive Chemistry Lab</h2>
+                    <p class="text-gray-600 text-lg mb-6">Experience chemistry like never before</p>
+                    
+                    <!-- Start Button -->
+                    <div class="flex justify-start">
+                        <a href="chemistry-lab.html" class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer block w-full max-w-sm">
+                            <h3 class="text-xl font-bold text-center">Start Your Experiment</h3>  
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 mt-auto">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 Moleculy: Interactive Chemistry Lab. Created by Muhammad Dzaky Atha F.</p>
+        </div>
+    </footer>
+    
+</body>
+</html>

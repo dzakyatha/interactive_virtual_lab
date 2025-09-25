@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chemistry Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../styles/styles.css" rel="stylesheet">
+</head>
+<body class="text-gray-800 flex flex-col min-h-screen" data-mode="spa">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <h1 class="text-2xl font-bold text-gray-800">Moleculy</h1>
+            
+            <!-- Home Button -->
+            <nav>
+                <a href="home.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8 flex-1">
+        <h2 class="text-3xl font-bold mb-6 text-center">Interactive Chemical Mixture Lab</h2>
+        <p class="text-center text-gray-600 mb-8">Drag and drop chemicals to mix them and observe reactions!</p>
+        
+        <!-- Chemistry Lab Interface -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            
+            <!-- Chemical Shelf -->
+            <div class="lg:col-span-3">
+                <h3 class="text-xl font-bold mb-4 text-center">Chemical Shelf</h3>
+                
+                <!-- Progress Section -->
+                <div class="bg-blue-50 p-3 rounded-lg mb-4">
+                    <div class="progress-header">
+                        <h4 class="font-semibold text-blue-800 mb-2">Progress</h4>
+                        <button id="instruction-btn" class="instruction-button" title="Show mixture instructions">
+                            <span class="instruction-icon">ℹ️</span>
+                        </button>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                        <div class="progress-text" id="progress-text">0/11 reactions completed</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 p-5 rounded-lg">
+                    <div class="chemical-shelf-grid">
+                        <!-- Available Chemical Bottles -->
+                        <div class="chemical-row">
+                            <div class="chemical-bottle" data-chemical="acid" style="background: linear-gradient(45deg, #ff6b6b, #ff5252);">
+                                <span class="chemical-label">HCl (Acid)</span>
+                            </div>
+                            <div class="chemical-bottle" data-chemical="base" style="background: linear-gradient(45deg, #4ecdc4, #26a69a);">
+                                <span class="chemical-label">NaOH (Base)</span>
+                            </div>
+                            <div class="chemical-bottle" data-chemical="salt" style="background: linear-gradient(45deg, #ffe66d, #ffd54f);">
+                                <span class="chemical-label">NaCl (Salt)</span>
+                            </div>
+                            <div class="chemical-bottle" data-chemical="water" style="background: linear-gradient(45deg, #74b9ff, #0984e3);">
+                                <span class="chemical-label">H₂O (Water)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Locked Chemical Bottles -->
+                        <div class="chemical-row">
+                            <div class="chemical-bottle locked" data-chemical="sulfuric" style="background: linear-gradient(45deg, #9ca3af, #6b7280);">
+                                <span class="chemical-label">H₂SO₄ (Sulfuric Acid)</span>
+                            </div>
+                            <div class="chemical-bottle locked" data-chemical="ammonia" style="background: linear-gradient(45deg, #9ca3af, #6b7280);">
+                                <span class="chemical-label">NH₃ (Ammonia)</span>
+                            </div>
+                            <div class="chemical-bottle locked" data-chemical="copper" style="background: linear-gradient(45deg, #9ca3af, #6b7280);">
+                                <span class="chemical-label">CuSO₄ (Copper Sulfate)</span>
+                            </div>
+                            <div class="chemical-bottle locked" data-chemical="indicator" style="background: linear-gradient(45deg, #9ca3af, #6b7280);">
+                                <span class="chemical-label">Litmus (pH Indicator)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mixing Beaker -->
+            <div class="lg:col-span-2">
+                <h3 class="text-xl font-bold mb-4 text-center">Mixing Beaker</h3>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div id="beaker" class="beaker-container mx-auto">
+                        <div class="beaker-shape">
+                            <div id="chemical-mixture" class="chemical-mixture">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reaction Display -->
+                    <div id="reaction-result" class="mt-6 text-center">
+                        <p class="text-gray-500">No reaction yet. Try mixing different chemicals!</p>
+                    </div>
+                    
+                    <!-- Reset Button -->
+                    <div class="text-center mt-4">
+                        <button id="reset-beaker" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+                            Reset Beaker
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="mt-8 bg-blue-50 p-4 rounded-lg">
+            <h4 class="font-bold text-blue-800 mb-2">How to Use:</h4>
+            <ul class="text-blue-700 space-y-1">
+                <li>• Drag chemical bottles from the shelf into the beaker</li>
+                <li>• Mix different chemicals to see reactions. Click the instruction button to see different mixtures</li>
+                <li>• Click "Reset Beaker" to start over</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 Moleculy: Interactive Chemistry Lab. Created by Muhammad Dzaky Atha F.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
